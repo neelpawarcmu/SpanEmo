@@ -71,11 +71,11 @@ class SpanEmo(nn.Module):
 
         #Loss Function
         if self.joint_loss == 'joint':
-            cel = F.binary_cross_entropy_with_logits(logits, targets).cuda()
+            cel = F.binary_cross_entropy_with_logits(logits, targets).to(device)
             cl = self.corr_loss(logits, targets)
             loss = ((1 - self.alpha) * cel) + (self.alpha * cl)
         elif self.joint_loss == 'cross-entropy':
-            loss = F.binary_cross_entropy_with_logits(logits, targets).cuda()
+            loss = F.binary_cross_entropy_with_logits(logits, targets).to(device)
         elif self.joint_loss == 'corr_loss':
             loss = self.corr_loss(logits, targets)
 
@@ -90,7 +90,8 @@ class SpanEmo(nn.Module):
         :param reduction: whether to avg or sum loss
         :return: loss
         """
-        loss = torch.zeros(y_true.size(0)).cuda()
+        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+        loss = torch.zeros(y_true.size(0)).to(device)
         for idx, (y, y_h) in enumerate(zip(y_true, y_hat.sigmoid())):
             y_z, y_o = (y == 0).nonzero(), y.nonzero()
             if y_o.nelement() != 0:

@@ -1,0 +1,17 @@
+{
+  "--alpha-loss": "0.2",
+  "--bert-lr": "2e-5",
+  "--checkpoint-path": "2022-11-13-00:39:39.pt",
+  "--dev-path": "data/spanish/dev.txt",
+  "--eval-batch-size": "32",
+  "--ffn-lr": "0.001",
+  "--help": false,
+  "--lang": "English",
+  "--loss-type": "cross-entropy",
+  "--max-epoch": "20",
+  "--max-length": "128",
+  "--output-dropout": "0.1",
+  "--seed": "42",
+  "--train-batch-size": "32",
+  "--train-path": "data/spanish/test.txt"
+}
